@@ -109,3 +109,31 @@ btnSoChanCC.addEventListener("click", ()=>{
   const soCCC = timSoChanCuoiCung(numbersArray)
   soChanCC.innerHTML = `Số chẵn cuối cùng: ${soCCC}`
 })
+
+// Đổi vị trí 2 phần tử trong mảng
+let vitri1 = document.getElementById("vitri1")
+let vitri2 = document.getElementById("vitri2")
+let btnSwap = document.getElementById("btnSwap")
+let swapp = document.getElementById("swapp")
+
+function checkSwap(array, VT1, VT2){
+  if(VT1 >=0 && VT1 < array.length && VT2 >= 0 && VT2 < array.length){
+    [array[VT1], array[VT2]] = [array[VT2], array[VT1]]
+    return array;
+  }else{
+    throw new Error ("Nhập số chỉ định trong mảng")
+  }
+}
+btnSwap.addEventListener("click", () => {
+  let index1 = vitri1.value;
+  let index2 = vitri2.value;
+  let result = checkSwap(numbersArray, index1, index2)
+
+  try {
+    swapp.innerHTML = `Sau khi đổi vị trí: ${result}`
+  } catch (error) {
+    swapp.innerHTML = `Lỗi: ${error.message}`
+  }
+})
+
+// sắp xếp giá trị tăng dần
