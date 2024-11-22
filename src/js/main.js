@@ -97,15 +97,15 @@ btnSoDuongNN.addEventListener("click", () => {
 let btnSoChanCC = document.getElementById("btnSoChanCC")
 let soChanCC = document.getElementById("soChanCC")
 
-function timSoChanCuoiCung(array){
-  for( let i = array.length - 1; i >= 0; i--){
-    if(i%2==0){
+function timSoChanCuoiCung(array) {
+  for (let i = array.length - 1; i >= 0; i--) {
+    if (i % 2 == 0) {
       return array[i]
     }
   }
 }
 
-btnSoChanCC.addEventListener("click", ()=>{
+btnSoChanCC.addEventListener("click", () => {
   const soCCC = timSoChanCuoiCung(numbersArray)
   soChanCC.innerHTML = `Số chẵn cuối cùng: ${soCCC}`
 })
@@ -116,12 +116,12 @@ let vitri2 = document.getElementById("vitri2")
 let btnSwap = document.getElementById("btnSwap")
 let swapp = document.getElementById("swapp")
 
-function checkSwap(array, VT1, VT2){
-  if(VT1 >=0 && VT1 < array.length && VT2 >= 0 && VT2 < array.length){
+function checkSwap(array, VT1, VT2) {
+  if (VT1 >= 0 && VT1 < array.length && VT2 >= 0 && VT2 < array.length) {
     [array[VT1], array[VT2]] = [array[VT2], array[VT1]]
     return array;
-  }else{
-    throw new Error ("Nhập số chỉ định trong mảng")
+  } else {
+    throw new Error("Nhập số chỉ định trong mảng")
   }
 }
 btnSwap.addEventListener("click", () => {
@@ -140,14 +140,14 @@ btnSwap.addEventListener("click", () => {
 let btnTangDan = document.getElementById("btnTangDan")
 let soTangDan = document.getElementById("soTangDan")
 
-function sapXepTangDan(array){
-  if(array.length == 0){
+function sapXepTangDan(array) {
+  if (array.length == 0) {
     return "Nhập số vào mảng để được sắp xếp"
   }
   let temp = 0
   for (let i = 0; i < array.length - 1; i++) {
-    for (let j = i+1; j < array.length; j++) {
-      if(array[i] > array[j]){
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[i] > array[j]) {
         temp = array[i]
         array[i] = array[j]
         array[j] = temp
@@ -156,9 +156,78 @@ function sapXepTangDan(array){
   }
   return array;
 }
-btnTangDan.addEventListener("click", () =>{
+btnTangDan.addEventListener("click", () => {
   const sortNumber = sapXepTangDan(numbersArray)
   soTangDan.innerHTML = `Thứ tự tăng dần: ${sortNumber}`
 })
 
 //Tìm số nguyên tố đầu tiên
+let btnTimSNT = document.getElementById("btnTimSNT")
+let soNT = document.getElementById("soNT")
+
+function isPrime(n) {
+  if (n <= 1) return false;
+  for (let i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) return false;
+  }
+  return true; // là số nguyên tố
+}
+function findFirstPrime(array) {
+  for (let i = 0; i < array.length; i++) {
+    if (isPrime(array[i])) return array[i]
+  }
+  return null
+}
+btnTimSNT.addEventListener("click", () => {
+  const n = parseInt(inputN.value);
+  if (!isNaN(n)) {
+    numbersArray.push(n)
+    const firstPrime = findFirstPrime(numbersArray)
+    if (firstPrime !== null) {
+      soNT.textContent = `Số nguyên tố đầu tiên trong mảng là: ${firstPrime}`
+    } else {
+      soNT.textContent = `Không có số nguyên tố nào trong mảng`
+    }
+  }else{
+    soNT.textContent = `Nhập số vào mảng`
+  }
+})
+
+// Đếm số nguyên
+let btnSoNguyen = document.getElementById("btnSoNguyen")
+let cacSoNguyen = document.getElementById("cacSoNguyen")
+
+function countInteger(array){
+  let count = 0;
+  for (let i = 0; i < array.length; i++) {
+    if(Number.isInteger(array[i])) count++;
+  }
+  return count;
+}
+btnSoNguyen.addEventListener("click", ()=>{
+  const demSoNguyen = countInteger(numbersArray)
+  cacSoNguyen.textContent = `Tổng ${demSoNguyen} số nguyên`
+})
+
+//So sánh âm dương
+let btnSoSanh = document.getElementById("btnSoSanh")
+let soSanhAmDuong = document.getElementById("soSanhAmDuong")
+function compareNegativePositive(array){
+  let countNegative = 0;
+  let countPositive = 0;
+  for (let i = 0; i < array.length; i++) {
+    if(array[i] < 0) countNegative++
+    if(array[i] > 0) countPositive++
+  }
+  return{countNegative, countPositive}
+}
+btnSoSanh.addEventListener("click", ()=> {
+  const countNP = compareNegativePositive(numbersArray)
+  if (countNP.countNegative > countNP.countPositive) {
+    soSanhAmDuong.textContent = `Số âm nhiều hơn số dương: ${countNP.countNegative} > ${countNP.countPositive}`
+  }else if(countNP.countNegative < countNP.countPositive){
+    soSanhAmDuong.textContent = `Số dương nhiều hơn số âm: ${countNP.countPositive} > ${countNP.countNegative}`
+  }else{
+    soSanhAmDuong.textContent = `Số lượng âm và dương bằng nhau`
+  }
+})
