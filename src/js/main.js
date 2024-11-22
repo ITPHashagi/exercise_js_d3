@@ -137,3 +137,28 @@ btnSwap.addEventListener("click", () => {
 })
 
 // sắp xếp giá trị tăng dần
+let btnTangDan = document.getElementById("btnTangDan")
+let soTangDan = document.getElementById("soTangDan")
+
+function sapXepTangDan(array){
+  if(array.length == 0){
+    return "Nhập số vào mảng để được sắp xếp"
+  }
+  let temp = 0
+  for (let i = 0; i < array.length - 1; i++) {
+    for (let j = i+1; j < array.length; j++) {
+      if(array[i] > array[j]){
+        temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+      }
+    }
+  }
+  return array;
+}
+btnTangDan.addEventListener("click", () =>{
+  const sortNumber = sapXepTangDan(numbersArray)
+  soTangDan.innerHTML = `Thứ tự tăng dần: ${sortNumber}`
+})
+
+//Tìm số nguyên tố đầu tiên
